@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Menu, X } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ onAdminClick }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -37,20 +37,35 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-3 items-center h-20 md:h-24">
           {/* Logo - Left */}
-          <motion.div
-            whileHover={{ 
-              scale: 1.1,
-              textShadow: "0 0 20px rgba(229, 9, 20, 0.8)"
-            }}
-            className="flex items-center space-x-3 justify-self-start"
-          >
-            <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-netflix-red to-red-600 rounded-lg flex items-center justify-center shadow-lg matrix-glow">
-              <Play className="w-6 h-6 md:w-7 md:h-7 text-white fill-white" />
-            </div>
-            <span className="text-2xl md:text-4xl font-bold gradient-text glow-text" style={{letterSpacing: '2px'}}>
-              StreamFlix
-            </span>
-          </motion.div>
+          <div className="flex items-center space-x-3 justify-self-start">
+            <motion.div
+              whileHover={{ 
+                scale: 1.1,
+                textShadow: "0 0 20px rgba(229, 9, 20, 0.8)"
+              }}
+              className="flex items-center space-x-3"
+            >
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-netflix-red to-red-600 rounded-lg flex items-center justify-center shadow-lg matrix-glow">
+                <Play className="w-6 h-6 md:w-7 md:h-7 text-white fill-white" />
+              </div>
+              <span className="text-2xl md:text-4xl font-bold gradient-text glow-text" style={{letterSpacing: '2px'}}>
+                StreamFlix
+              </span>
+            </motion.div>
+            
+            {/* Admin Access Button */}
+            {onAdminClick && (
+              <motion.button
+                onClick={onAdminClick}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="ml-4 w-8 h-8 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors opacity-70 hover:opacity-100"
+                title="Panel de Administración"
+              >
+                <div className="w-3 h-3 border border-current rounded-sm"></div>
+              </motion.button>
+            )}
+          </div>
 
           {/* Desktop Navigation - Center */}
           <nav className="hidden md:flex items-center justify-center">
